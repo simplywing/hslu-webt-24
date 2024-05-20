@@ -3,10 +3,27 @@
     width: 100%;
 }
 
+.scroll-target::before { 
+    display: block; 
+    content: " "; 
+    margin-top: -90px; 
+    height: 90px; 
+    visibility: hidden; 
+    pointer-events: none;
+}
+
 .no-padding {
     padding: 0;
 }
 
 main {
     margin-top: 60px; 
+}
+
+#form-app > input {
+    color: black;
+}
+
+#stats-canvas{
+    height: 350px;
 }
