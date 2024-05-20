@@ -15,43 +15,30 @@ Vue.createApp({
                 invalidShvNum: "Die SHV-Nummer ist ungültig",
                 invalidBirthdate: "Das Geburtsdatum ist ungültig"
             },
-            members: [
-                {name: "Reiner Zufall", email: "reiner@zufall.ch", shvNum: 123456, birthdate: "1980-01-01", entryDate: "2022-01-01"},
-                {name: "Vera Aloe", email: "vera@gmail.com", shvNum: 87434, birthdate: "1999-01-21", entryDate: "2019-12-11"},
-                {name: "Max Superflug", email: "max_s@gmx.net", shvNum: 23444, birthdate: "2000-10-17", entryDate: "2024-01-15"},
-                {name: "Reiner Zufall", email: "reiner@zufall.ch", shvNum: 123456, birthdate: "1980-01-01", entryDate: "2022-01-01"},
-                {name: "Vera Aloe", email: "vera@gmail.com", shvNum: 87434, birthdate: "1999-01-21", entryDate: "2019-12-11"},
-                {name: "Max Superflug", email: "max_s@gmx.net", shvNum: 23444, birthdate: "2000-10-17", entryDate: "2024-01-15"},
-                {name: "Reiner Zufall", email: "reiner@zufall.ch", shvNum: 123456, birthdate: "1980-01-01", entryDate: "2022-01-01"},
-                {name: "Vera Aloe", email: "vera@gmail.com", shvNum: 87434, birthdate: "1999-01-21", entryDate: "2019-12-11"},
-                {name: "Max Superflug", email: "max_s@gmx.net", shvNum: 23444, birthdate: "2000-10-17", entryDate: "2024-01-15"},
-                {name: "Reiner Zufall", email: "reiner@zufall.ch", shvNum: 123456, birthdate: "1980-01-01", entryDate: "2022-01-01"},
-                {name: "Vera Aloe", email: "vera@gmail.com", shvNum: 87434, birthdate: "1999-01-21", entryDate: "2019-12-11"},
-                {name: "Max Superflug", email: "max_s@gmx.net", shvNum: 23444, birthdate: "2000-10-17", entryDate: "2024-01-15"}
-            ]
+            members: []
         }
     },
     methods: {
-        validateName(){
+        validateName() {
             this.validName = this.name.length >= 3;
             return this.validName;
         },
-        validateEmail(){
-            let re = /\S+@\S+\.\S+/;
-            this.validEmail = re.test(this.email);
+        validateEmail() {
+            let pattern = /\S+@\S+\.\S+/;
+            this.validEmail = pattern.test(this.email);
             return this.validEmail;
         },
-        validateShvNum(){
+        validateShvNum() {
             this.validShvNum = this.shvNum > 0;
             return this.validShvNum;
         },
-        validateBirthdate(){
+        validateBirthdate() {
             let today = new Date();
             let birthdate = new Date(this.birthdate);
             this.validBirthdate = birthdate < today;
             return this.validBirthdate;
         },
-        clearForm(){
+        clearForm() {
             this.name = "";
             this.email = "";
             this.shvNum = "";
@@ -61,15 +48,16 @@ Vue.createApp({
             this.validShvNum = true;
             this.validBirthdate = true;
         },
-        handleFormSubmit(e){
+        handleFormSubmit(e) {
             e.preventDefault();
-            if(!(this.validateName() && this.validateEmail() && this.validateShvNum() && this.validateBirthdate())){
+            if (!(this.validateName() && this.validateEmail() && this.validateShvNum() && this.validateBirthdate())) {
                 return
             }
             this.members.push(this.newMember());
+            this.updateStatsCanvas();
             this.clearForm();
         },
-        newMember(){
+        newMember() {
             return {
                 name: this.name,
                 email: this.email,
@@ -78,7 +66,17 @@ Vue.createApp({
                 entryDate: new Date().toISOString().slice(0, 10)
             }
         },
-        updateStatsCanvas(){
+        getMembers() {
+            let that = this;
+            xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                that.members = JSON.parse(this.responseText);
+            }
+            //TODO: handle error and timeout
+            xhr.open("GET", "backend.php?members", true);
+            xhr.send();
+        },
+        updateStatsCanvas() {
             let cvs = document.getElementById("stats-canvas");
             this.updateCanvasSize(cvs);
             let ctx = cvs.getContext("2d");
@@ -93,7 +91,7 @@ Vue.createApp({
             ctx.moveTo(20, 0);
             ctx.lineTo(20, height);
             ctx.stroke();
-            let data = [{year: 2014, members: 3}, {year: 2015, members: 12}, {year: 2016, members: 21}, {year: 2017, members: 23}, {year: 2018, members: 21}, {year: 2019, members: 25}, {year: 2020, members: 31}, {year: 2021, members: 31}, {year: 2022, members: 36}, {year: 2023, members: 42}, {year: 2024, members: 40}];
+            let data = [{ year: 2014, members: 3 }, { year: 2015, members: 7 }, { year: 2016, members: 9 }, { year: 2017, members: 11 }, { year: 2018, members: 10 }, { year: 2019, members: 13 }, { year: 2020, members: 17 }, { year: 2021, members: 20 }, { year: 2022, members: 21 }, { year: 2023, members: 24 }, { year: 2024, members: this.members.length }];
             let x0 = 20; //draw data points
             let y0 = height - 20;
             let x1 = width;
@@ -103,16 +101,16 @@ Vue.createApp({
             let xMin = 2013;
             let xMax = 2025;
             let yMin = 0;
-            let yMax = 45;
+            let yMax = 27;
             let xScale = dx / (xMax - xMin);
             let yScale = dy / (yMax - yMin);
             ctx.beginPath();
             ctx.moveTo(x0 + (data[0].year - xMin) * xScale, y0 - (data[0].members - yMin) * yScale);
-            for(let i = 1; i < data.length; i++){
+            for (let i = 1; i < data.length; i++) {
                 ctx.lineTo(x0 + (data[i].year - xMin) * xScale, y0 - (data[i].members - yMin) * yScale);
             }
             ctx.stroke();
-            for(let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 ctx.beginPath();
                 ctx.arc(x0 + (data[i].year - xMin) * xScale, y0 - (data[i].members - yMin) * yScale, 3, 0, 2 * Math.PI);
                 ctx.fill();
@@ -120,11 +118,11 @@ Vue.createApp({
             ctx.font = "12px Arial"; //draw labels
             ctx.textAlign = "center";
             ctx.textBaseline = "top";
-            for(let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 ctx.fillText(data[i].year, x0 + (data[i].year - xMin) * xScale, y0 + 5);
             }
             ctx.textBaseline = "middle";
-            for(let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 ctx.fillText(data[i].members, x0 + (data[i].year - xMin) * xScale, (y0 - (data[i].members - yMin) * yScale) + -10);
             }
             ctx.save(); //label the y-axis
@@ -135,15 +133,22 @@ Vue.createApp({
             ctx.fillText("Mitglieder", 0, 0);
             ctx.restore();
         },
-        updateCanvasSize(cvs){
-            cvs.style.width ='100%';    
-            cvs.style.height='600';
-            cvs.width  = cvs.offsetWidth;
+        updateCanvasSize(cvs) {
+            cvs.style.width = '100%';
+            cvs.style.height = '600';
+            cvs.width = cvs.offsetWidth;
             cvs.height = cvs.offsetHeight;
+        },
+        handleResize() {
+            this.updateStatsCanvas();
         }
     },
-    mounted: function() {
-        console.log("Vue app mounted");
+    mounted: function () {
+        this.getMembers();
         this.updateStatsCanvas();
+        window.addEventListener("resize", this.handleResize);
     },
+    unmounted: function () {
+        window.removeEventListener("resize", this.handleResize);
+    }
 }).mount('#registration-app');

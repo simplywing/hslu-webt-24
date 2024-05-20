@@ -45,3 +45,8 @@ sudo apt -y php php-common libapache2-mod-php php-curl php-imagick php-json php-
 
 apt list --installed | grep php
 ```
+
+### Install PhpMyAdmin
+```bash
+sudo apt -y phpmyadmin
+```

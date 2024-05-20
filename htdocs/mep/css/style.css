@@ -3,12 +3,12 @@
     width: 100%;
 }
 
-.scroll-target::before { 
-    display: block; 
-    content: " "; 
-    margin-top: -90px; 
-    height: 90px; 
-    visibility: hidden; 
+.scroll-target::before {
+    display: block;
+    content: " ";
+    margin-top: -90px;
+    height: 90px;
+    visibility: hidden;
     pointer-events: none;
 }
 
@@ -17,13 +17,32 @@
 }
 
 main {
-    margin-top: 60px; 
+    margin-top: 40px;
 }
 
-#form-app > input {
+#form-app>input {
     color: black;
 }
 
-#stats-canvas{
+#stats-canvas {
     height: 350px;
+}
+
+.mandatory {
+    color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        margin-top: 120px;
+    }
+
+    .scroll-target::before {
+        display: block;
+        content: " ";
+        margin-top: -150px;
+        height: 150px;
+        visibility: hidden;
+        pointer-events: none;
+    }
 }

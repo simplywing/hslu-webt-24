@@ -11,7 +11,7 @@
 
 <body>
     <div class="w3-top">
-        <header class="w3-container w3-black">
+        <header class="w3-container w3-blue">
             <nav class="w3-bar">
                 <a href="#info-section" class="w3-bar-item w3-button w3-mobile">Information</a>
                 <a href="#new-member-section" class="w3-bar-item w3-button w3-mobile">Neumitglied</a>
@@ -21,7 +21,7 @@
     </div>
     <main class="w3-container" id="registration-app">
         <div class="w3-row">
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m12 l6 w3-padding">
                 <section class="w3-panel w3-white w3-card">
                     <h1 class="scroll-target" id="info-section"><b>Gleitschirmclub Thermik-Junkies</b></h1>
                     <h3>Wir sind ein Gleitschirmclub aus der Zentralschweiz und freuen uns über jedes neue Mitglied.
@@ -29,10 +29,10 @@
                     <p>Unsere Webseite bietet dir die Möglichkeit, dich über den Club zu informieren, ein neues
                         Mitglied
                         zu
-                        erfassen und die Mitgliederliste einzusehen.</p>
+                        erfassen und die Mitgliederliste vom aktuellen Jahr einzusehen. Zudem siehst du auf dem Chart wie viele Mitglieder der Club seit der Gründung jedes Jahr zählte.</p>
                 </section>
                 <section class="w3-panel w3-white w3-card">
-                    <h2><b>Über uns</b></h2>
+                    <h2><b><text accessibilityLabel="Über uns">Über uns 📜</text></b></h2>
                     <p>Im Herzen der Zentralschweiz, umgeben von majestätischen Bergen und idyllischen Seen,
                         entstand
                         2014
@@ -46,12 +46,12 @@
                         den
                         unglaublichen Thermikbedingungen, die er in der Region gefunden hatte. Sein Enthusiasmus
                         steckte
-                        auch die anderen anwesenden Bergsportfreunde an, darunter Lara, eine aufstrebende
+                        auch die anderen anwesenden Bergsportfreunde an, darunter Lara, eine frisch brevetierte
                         Gleitschirmpilotin, und Peter, ein erfahrener Fluglehrer. Gemeinsam beschlossen sie, ihre
                         Leidenschaft für das Gleitschirmfliegen zu teilen und Gleichgesinnte zu vereinen.</p>
                 </section>
             </div>
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m12 l6 w3-padding">
                 <section class="w3-panel w3-white w3-card no-padding">
                     <img class="w3-image" src="img/jairph-0gF_VwwNeYM-unsplash.jpg"
                         alt="Gleitschirm auf einer grünen Wiese mit einem fliegenden Gleitschirm im Hintergrund">
@@ -60,49 +60,49 @@
         </div>
         <div class="w3-row">
             <div class="w3-col m6 w3-padding">
-                <section class="w3-panel w3-pink w3-card">
-                    <h2 class="scroll-target" id="new-member-section"><b>Erfassung neues Clubmitglied</b></h2>
+                <section class="w3-panel w3-blue w3-card">
+                    <h2 class="scroll-target" id="new-member-section"><b><text accessibilityLabel="Erfassung Clubmitglied">Erfassung Clubmitglied ⚡</text></b></h2>
                     <p>Dies ist die Eingabe. In diesem Formular kannst du ein neues Clubmitglied erfassen.</p>
                     <form class="w3-container" id="form-app" action="">
                         <div class="w3-section">
-                            <label for="name"><b>Name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Reiner Zufall"
-                                name="name" v-model="name" v-on:keyup="validateName()">
+                            <label for="i-name"><b>Name <span class="mandatory">*</span></b></label>
+                            <input id="i-name" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Reiner Zufall"
+                                name="name" v-model="name" v-on:keyup="validateName()" required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validName">
                                 <p>{{ error.invalidName }}</p>
                             </div>
-                            <label for="email"><b>E-Mail</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email"
+                            <label for="i-email"><b>E-Mail <span class="mandatory">*</span></b></label>
+                            <input id="i-email" class="w3-input w3-border w3-margin-bottom" type="email"
                                 placeholder="reiner@zufall.ch" name="email" v-model="email"
-                                v-on:keyup="validateEmail()">
+                                v-on:keyup="validateEmail()" required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validEmail">
                                 <p>{{ error.invalidEmail }}</p>
                             </div>
-                            <label for="shvNum"><b>SHV-Nummer</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="number" placeholder="Bsp: 42069"
-                                name="shvNum" v-model="shvNum" v-on:keyup="validateShvNum()">
+                            <label for="i-shvNum"><b>SHV-Nummer <span class="mandatory">*</span></b></label>
+                            <input id="i-shvNum" class="w3-input w3-border w3-margin-bottom" type="number" placeholder="Bsp: 42069"
+                                name="shvNum" v-model="shvNum" v-on:keyup="validateShvNum()" required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validShvNum">
                                 <p>{{ error.invalidShvNum }}</p>
                             </div>
-                            <label for="birthdate"><b>Geburtsdatum</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="date" placeholder=""
-                                name="birthdate" v-model="birthdate" v-on:change="validateBirthdate()">
+                            <label for="i-birthdate"><b>Geburtsdatum <span class="mandatory">*</span></b></label>
+                            <input id="i-birthdate" class="w3-input w3-border w3-margin-bottom" type="date"
+                                name="birthdate" v-model="birthdate" v-on:change="validateBirthdate()" required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validBirthdate">
                                 <p>{{ error.invalidBirthdate }}</p>
                             </div>
                             <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit"
-                                v-on:click="handleFormSubmit">Speichern</button>
+                                v-on:click="handleFormSubmit"><text accessibilityLabel="Speichern"><b>💾 Speichern</b></text></button>
                         </div>
                     </form>
                 </section>
             </div>
             <div class="w3-col m6 w3-padding">
                 <section class="w3-panel w3-white w3-card">
-                    <h2><b>Mitgliederstatistik</b></h2>
+                    <h2><b><text accessibilityLabel="Mitgliederstatistik">Mitglieder<wbr>statistik 📈</text></b></h2>
                     <p>Die Nachfolgende Grafik zeigt den Verlauf der Mitgliederzahl seit der Gründung des Clubs in 2014.
                     </p>
                     <canvas id="stats-canvas"></canvas>
@@ -112,10 +112,10 @@
         <div class="w3-row">
             <div class="w3-col m12 w3-padding">
                 <section class="w3-panel w3-white w3-card">
-                    <h2 class="scroll-target" id="member-list"><b>Mitgliederliste</b></h2>
+                    <h2 class="scroll-target" id="member-list"><b><text accessibilityLabel="Mitgliederliste">Mitgliederliste 🗂️</text></b></h2>
                     <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet:</p>
                     <div class="w3-container responsive-table-container">
-                        <table class="w3-table-all w3-card-4 w3-margin-bottom">
+                        <table class="w3-table-all w3-card-4 w3-margin-bottom" v-if="members.length > 0">
                             <tr>
                                 <th>Name</th>
                                 <th>E-Mail</th>
@@ -131,6 +131,10 @@
                                 <td>{{ member.entryDate }}</td>
                             </tr>
                         </table>
+                        <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
+                                v-if="members.length < 1">
+                                <p>Aktuell sind keine Mitglieder erfasst ☹️</p>
+                            </div>
                     </div>
                 </section>
             </div>
