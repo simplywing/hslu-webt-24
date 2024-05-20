@@ -27,26 +27,21 @@
                     <h3>Wir sind ein Gleitschirmclub aus der Zentralschweiz und freuen uns über jedes neue Mitglied.
                     </h3>
                     <p>Unsere Webseite bietet dir die Möglichkeit, dich über den Club zu informieren, ein neues
-                        Mitglied
-                        zu
-                        erfassen und die Mitgliederliste vom aktuellen Jahr einzusehen. Zudem siehst du auf dem Chart wie viele Mitglieder der Club seit der Gründung jedes Jahr zählte.</p>
+                        Mitglied zu erfassen und die Mitgliederliste vom aktuellen Jahr einzusehen. Zudem siehst du auf
+                        dem
+                        Chart wie viele Mitglieder der Club seit der Gründung jedes Jahr zählte.</p>
                 </section>
                 <section class="w3-panel w3-white w3-card">
                     <h2><b><text accessibilityLabel="Über uns">Über uns 📜</text></b></h2>
                     <p>Im Herzen der Zentralschweiz, umgeben von majestätischen Bergen und idyllischen Seen,
-                        entstand
-                        2014
-                        eine Gemeinschaft von Flugbegeisterten. Diese Gruppe, bestehend aus leidenschaftlichen
-                        Abenteurern,
-                        nannte sich stolz die "Thermik-Junkies". Die Idee zur Gründung des Clubs entstand während
-                        einer
-                        gemütlichen Runde in der Berghütte auf dem Rigi, dem Hausberg der Zentralschweiz.<br><br>
-
+                        entstand 2014 eine Gemeinschaft von Flugbegeisterten. Diese Gruppe, bestehend aus
+                        leidenschaftlichen
+                        Abenteurern, nannte sich stolz die "Thermik-Junkies". Die Idee zur Gründung des Clubs entstand
+                        während
+                        einer gemütlichen Runde in der Berghütte auf dem Rigi, dem Hausberg der Zentralschweiz.<br><br>
                         Markus, ein erfahrener Gleitschirmpilot, erzählte begeistert von seinen jüngsten Flügen und
-                        den
-                        unglaublichen Thermikbedingungen, die er in der Region gefunden hatte. Sein Enthusiasmus
-                        steckte
-                        auch die anderen anwesenden Bergsportfreunde an, darunter Lara, eine frisch brevetierte
+                        den unglaublichen Thermikbedingungen, die er in der Region gefunden hatte. Sein Enthusiasmus
+                        steckte auch die anderen anwesenden Bergsportfreunde an, darunter Lara, eine frisch brevetierte
                         Gleitschirmpilotin, und Peter, ein erfahrener Fluglehrer. Gemeinsam beschlossen sie, ihre
                         Leidenschaft für das Gleitschirmfliegen zu teilen und Gleichgesinnte zu vereinen.</p>
                 </section>
@@ -61,41 +56,46 @@
         <div class="w3-row">
             <div class="w3-col m6 w3-padding">
                 <section class="w3-panel w3-blue w3-card">
-                    <h2 class="scroll-target" id="new-member-section"><b><text accessibilityLabel="Erfassung Clubmitglied">Erfassung Clubmitglied ⚡</text></b></h2>
+                    <h2 class="scroll-target" id="new-member-section"><b><text
+                                accessibilityLabel="Erfassung Clubmitglied">Erfassung Clubmitglied ⚡</text></b></h2>
                     <p>Dies ist die Eingabe. In diesem Formular kannst du ein neues Clubmitglied erfassen.</p>
                     <form class="w3-container" id="form-app" action="">
                         <div class="w3-section">
                             <label for="i-name"><b>Name <span class="mandatory">*</span></b></label>
-                            <input id="i-name" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Reiner Zufall"
-                                name="name" v-model="name" v-on:keyup="validateName()" required aria-required="true">
+                            <input id="i-name" class="w3-input w3-border w3-margin-bottom" type="text"
+                                placeholder="Reiner Zufall" name="name" v-model="name" v-on:keyup="validateName()"
+                                required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validName">
                                 <p>{{ error.invalidName }}</p>
                             </div>
                             <label for="i-email"><b>E-Mail <span class="mandatory">*</span></b></label>
                             <input id="i-email" class="w3-input w3-border w3-margin-bottom" type="email"
-                                placeholder="reiner@zufall.ch" name="email" v-model="email"
-                                v-on:keyup="validateEmail()" required aria-required="true">
+                                placeholder="reiner@zufall.ch" name="email" v-model="email" v-on:keyup="validateEmail()"
+                                required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validEmail">
                                 <p>{{ error.invalidEmail }}</p>
                             </div>
                             <label for="i-shvNum"><b>SHV-Nummer <span class="mandatory">*</span></b></label>
-                            <input id="i-shvNum" class="w3-input w3-border w3-margin-bottom" type="number" placeholder="Bsp: 42069"
-                                name="shvNum" v-model="shvNum" v-on:keyup="validateShvNum()" required aria-required="true">
+                            <input id="i-shvNum" class="w3-input w3-border w3-margin-bottom" type="number"
+                                placeholder="Bsp: 42069" name="shvNum" v-model="shvNum" v-on:keyup="validateShvNum()"
+                                required aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validShvNum">
                                 <p>{{ error.invalidShvNum }}</p>
                             </div>
                             <label for="i-birthdate"><b>Geburtsdatum <span class="mandatory">*</span></b></label>
                             <input id="i-birthdate" class="w3-input w3-border w3-margin-bottom" type="date"
-                                name="birthdate" v-model="birthdate" v-on:change="validateBirthdate()" required aria-required="true">
+                                name="birthdate" v-model="birthdate" v-on:change="validateBirthdate()" required
+                                aria-required="true">
                             <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
                                 v-if="!validBirthdate">
                                 <p>{{ error.invalidBirthdate }}</p>
                             </div>
                             <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit"
-                                v-on:click="handleFormSubmit"><text accessibilityLabel="Speichern"><b>💾 Speichern</b></text></button>
+                                v-on:click="handleFormSubmit"><text accessibilityLabel="Speichern"><b>💾
+                                        Speichern</b></text></button>
                         </div>
                     </form>
                 </section>
@@ -112,7 +112,8 @@
         <div class="w3-row">
             <div class="w3-col m12 w3-padding">
                 <section class="w3-panel w3-white w3-card">
-                    <h2 class="scroll-target" id="member-list"><b><text accessibilityLabel="Mitgliederliste">Mitgliederliste 🗂️</text></b></h2>
+                    <h2 class="scroll-target" id="member-list"><b><text
+                                accessibilityLabel="Mitgliederliste">Mitgliederliste 🗂️</text></b></h2>
                     <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet:</p>
                     <div class="w3-container responsive-table-container">
                         <table class="w3-table-all w3-card-4 w3-margin-bottom" v-if="members.length > 0">
@@ -132,14 +133,13 @@
                             </tr>
                         </table>
                         <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
-                                v-if="members.length < 1">
-                                <p>Aktuell sind keine Mitglieder erfasst ☹️</p>
-                            </div>
+                            v-if="members.length < 1">
+                            <p>Aktuell sind keine Mitglieder erfasst ☹️</p>
+                        </div>
                     </div>
                 </section>
             </div>
         </div>
-
     </main>
     <footer class="w3-container w3-black">
         WEBT Projekt FS2024 - Joël Ammann
@@ -147,5 +147,4 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31"></script>
 <script src="js/script.js"></script>
-
 </html>
