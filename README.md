@@ -50,3 +50,8 @@ apt list --installed | grep php
 ```bash
 sudo apt -y phpmyadmin
 ```
+
+### Enable mod_rewrite
+```bash
+sudo a2enmod rewrite
+```

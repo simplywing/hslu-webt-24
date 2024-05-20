@@ -4,12 +4,7 @@
 // TODO: Error Handling
 // TODO: Implement POST, DELETE
 
-if($_SERVER['REQUEST_METHOD'] != 'GET') {
-    http_response_code(405);
-    exit;
-}
-
-if(isset($_GET['members'])) {
+if(isset($_GET['_url']) && $_GET['_url'] == '/api/v1/members') {
     header('Content-Type: application/json');
     $conn = mysqli_connect("localhost", "root", "ruth", "thermikjunkies");
     $query = "select uname as name, email, shvNum, birthdate, entryDate from members order by entryDate asc";
@@ -23,5 +18,13 @@ if(isset($_GET['members'])) {
     
     echo json_encode($membersAssoc);    
 }
+else {
+    //send 404 status code
+    http_response_code(404);
+    die();
+}
+
+
+
 
 ?>

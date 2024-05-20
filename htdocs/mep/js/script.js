@@ -71,9 +71,10 @@ Vue.createApp({
             xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 that.members = JSON.parse(this.responseText);
+                that.updateStatsCanvas();
             }
             //TODO: handle error and timeout
-            xhr.open("GET", "backend.php?members", true);
+            xhr.open("GET", "api/v1/members", true);
             xhr.send();
         },
         updateStatsCanvas() {
@@ -145,7 +146,6 @@ Vue.createApp({
     },
     mounted: function () {
         this.getMembers();
-        this.updateStatsCanvas();
         window.addEventListener("resize", this.handleResize);
     },
     unmounted: function () {
