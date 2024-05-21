@@ -5,10 +5,7 @@ Vue.createApp({
             email: "",
             shvNum: "",
             birthdate: "",
-            validName: true,
-            validEmail: true,
-            validShvNum: true,
-            validBirthdate: true,
+            validName: true, validEmail: true, validShvNum: true, validBirthdate: true,
             error: {
                 invalidName: "Der Name muss mindestens 3 Zeichen lang sein",
                 invalidEmail: "Die E-Mail-Adresse ist ungültig",
@@ -71,7 +68,8 @@ Vue.createApp({
             xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 if(that.testAndHandleRequestError(xhr)){ return };
-                that.getMembers();
+                that.members = JSON.parse(xhr.responseText);
+                that.updateStatsCanvas();
             }
             xhr.onerror = function () {
                 alert(that.error.errorSavingMembers);
@@ -100,8 +98,30 @@ Vue.createApp({
             xhr.open("GET", "api/v1/members", true);
             xhr.send();
         },
+        handleDeleteMember(email){
+            if(!confirm(`Mitglied "${email}" löschen?`)){
+                return;
+            }
+            let that = this;
+            xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if(that.testAndHandleRequestError(xhr)){ return };
+                that.getMembers();
+            }
+            xhr.onerror = function () {
+                alert(that.error.errorLoadingMembers);
+            }
+            xhr.ontimeout = function () {
+                alert(that.error.timoutLoadingMembers);
+            }
+            //TODO: handle error and timeout
+            xhr.open("DELETE", "api/v1/members", true);
+            xhr.send(JSON.stringify({
+                email: email
+            }));
+        },
         testAndHandleRequestError(xhr){
-            if (xhr.status != 200) {
+            if (xhr.status < 200 || xhr.status > 299) {
                 let response = JSON.parse(xhr.responseText);
                 alert(`Request Failed: ${response.error.message} (${xhr.status})`);
                 return true;
@@ -133,7 +153,7 @@ Vue.createApp({
             let xMin = 2013;
             let xMax = 2025;
             let yMin = 0;
-            let yMax = 27;
+            let yMax = this.members.length > 24 ? this.members.length + 3 : 27;
             let xScale = dx / (xMax - xMin);
             let yScale = dy / (yMax - yMin);
             ctx.beginPath();
@@ -149,19 +169,17 @@ Vue.createApp({
             }
             ctx.font = "12px Arial"; //draw labels
             ctx.textAlign = "center";
-            ctx.textBaseline = "top";
-            for (let i = 0; i < data.length; i++) {
-                ctx.fillText(data[i].year, x0 + (data[i].year - xMin) * xScale, y0 + 5);
-            }
             ctx.textBaseline = "middle";
             for (let i = 0; i < data.length; i++) {
                 ctx.fillText(data[i].members, x0 + (data[i].year - xMin) * xScale, (y0 - (data[i].members - yMin) * yScale) + -10);
             }
+            ctx.textBaseline = "top";
+            for (let i = 0; i < data.length; i++) {
+                ctx.fillText(data[i].year, x0 + (data[i].year - xMin) * xScale, y0 + 5);
+            }
             ctx.save(); //label the y-axis
             ctx.translate(7, height / 2);
             ctx.rotate(-Math.PI / 2);
-            ctx.textAlign = "center";
-            ctx.textBaseline = "top";
             ctx.fillText("Mitglieder", 0, 0);
             ctx.restore();
         },

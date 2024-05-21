@@ -108,7 +108,8 @@
                 <section class="w3-panel w3-white w3-card">
                     <h2 class="scroll-target" id="member-list"><b><text
                                 accessibilityLabel="Mitgliederliste">Mitgliederliste 🗂️</text></b></h2>
-                    <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet:</p>
+                    <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet.<br>
+                        Das Eintrittsdatum wird bei der Erfassung eines Clubmitgliedes serverseitig berechnet.</p>
                     <div class="w3-container responsive-table-container">
                         <table class="w3-table-all w3-card-4 w3-margin-bottom" v-if="members.length > 0">
                             <tr>
@@ -117,13 +118,15 @@
                                 <th>SHV-Nummer</th>
                                 <th>Geburtsdatum</th>
                                 <th>Eintrittsdatum</th>
+                                <th class="w3-right-align">Bearbeiten</th>
                             </tr>
-                            <tr v-for="member in members">
+                            <tr v-for="member in members" class="member-table-row">
                                 <td>{{ member.name }}</td>
                                 <td>{{ member.email }}</td>
                                 <td>{{ member.shvNum }}</td>
                                 <td>{{ member.birthdate }}</td>
                                 <td>{{ member.entryDate }}</td>
+                                <td class="w3-right-align"><button class="remove-button" type="button" v-on:click="handleDeleteMember(member.email)">Löschen</button></td>
                             </tr>
                         </table>
                         <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
