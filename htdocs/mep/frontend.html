@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,32 +8,40 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Gleitschirmclub Thermik-Junkies</title>
 </head>
+
 <body>
     <div class="w3-top">
         <header class="w3-container w3-blue">
             <nav class="w3-bar">
                 <a href="#info-section" class="w3-bar-item w3-button w3-mobile">Information</a>
                 <a href="#new-member-section" class="w3-bar-item w3-button w3-mobile">Neumitglied</a>
-                <a href="#member-list" class="w3-bar-item w3-button w3-mobile">Mitgliederliste</a>
+                <a href="#member-list-section" class="w3-bar-item w3-button w3-mobile">Mitgliederliste</a>
             </nav>
         </header>
     </div>
-    <main class="w3-container" id="registration-app" v-cloak>
+    <main class="w3-container" id="registration-app">
         <div class="w3-row">
             <div class="w3-col m12 l6 w3-padding">
                 <section class="w3-panel w3-white w3-card">
                     <h1 class="scroll-target" id="info-section"><b>Gleitschirmclub Thermik-Junkies</b></h1>
-                    <h3>Wir sind ein Gleitschirmclub aus der Zentralschweiz und freuen uns über jedes neue Mitglied.</h3>
+                    <h3>Wir sind ein Gleitschirmclub aus der Zentralschweiz und freuen uns über jedes neue Mitglied.
+                    </h3>
                     <p>Unsere Webseite bietet dir die Möglichkeit, dich über den Club zu informieren, ein neues
                         Mitglied zu erfassen und die Mitgliederliste vom aktuellen Jahr einzusehen. Zudem siehst du auf
-                        dem Chart wie viele Mitglieder der Club seit der Gründung jedes Jahr zählte.</p>
+                        dem Chart wie viele Mitglieder der Club seit der Gründung jedes Jahr zählte. Der Chart wird
+                        automatisch aktualisiert,
+                        sobald neue Mitglieder hinzugefügt, oder über die Mitgliederliste gelöscht werden. Das Cookie
+                        'user' enthält eine eindeutige ID,
+                        welche beim Hinzufügen von neuen Mitgliedern gespeichert wird.</p>
                 </section>
                 <section class="w3-panel w3-white w3-card">
                     <h2><b><text accessibilityLabel="Über uns">Über uns 📜</text></b></h2>
                     <p>Im Herzen der Zentralschweiz, umgeben von majestätischen Bergen und idyllischen Seen,
-                        entstand 2014 eine Gemeinschaft von Flugbegeisterten. Diese Gruppe, bestehend aus leidenschaftlichen
+                        entstand 2014 eine Gemeinschaft von Flugbegeisterten. Diese Gruppe, bestehend aus
+                        leidenschaftlichen
                         Abenteurern, nannte sich stolz die "Thermik-Junkies". Die Idee zur Gründung des Clubs entstand
-                        während einer gemütlichen Runde in der Berghütte auf dem Rigi, dem Hausberg der Zentralschweiz.<br><br>
+                        während einer gemütlichen Runde in der Berghütte auf dem Rigi, dem Hausberg der
+                        Zentralschweiz.<br><br>
                         Markus, ein erfahrener Gleitschirmpilot, erzählte begeistert von seinen jüngsten Flügen und
                         den unglaublichen Thermikbedingungen, die er in der Region gefunden hatte. Sein Enthusiasmus
                         steckte auch die anderen anwesenden Bergsportfreunde an, darunter Lara, eine frisch brevetierte
@@ -52,8 +61,9 @@
                 <section class="w3-panel w3-blue w3-card">
                     <h2 class="scroll-target" id="new-member-section"><b><text
                                 accessibilityLabel="Erfassung Clubmitglied">Erfassung Clubmitglied ⚡</text></b></h2>
-                    <p>Dies ist die Eingabe. In diesem Formular kannst du ein neues Clubmitglied erfassen.</p>
-                    <form class="w3-container" id="form-app" action="">
+                    <p>Dies ist die Eingabe. In diesem Formular kannst du ein neues Clubmitglied erfassen. <br>Die
+                        E-Mail Adresse muss eindeutig sein.</p>
+                    <form class="w3-container" id="form-app" action="" v-cloak>
                         <div class="w3-section">
                             <label for="i-name"><b>Name <span class="mandatory">*</span></b></label>
                             <input id="i-name" class="w3-input w3-border w3-margin-bottom" type="text"
@@ -97,7 +107,8 @@
             <div class="w3-col m6 w3-padding">
                 <section class="w3-panel w3-white w3-card">
                     <h2><b><text accessibilityLabel="Mitgliederstatistik">Mitglieder<wbr>statistik 📈</text></b></h2>
-                    <p>Die Nachfolgende Grafik zeigt den Verlauf der Mitgliederzahl seit der Gründung des Clubs in 2014.
+                    <p>Die folgende Grafik zeigt die Entwicklung der Mitgliederzahlen seit der Gründung des Clubs im
+                        Jahr 2014.
                     </p>
                     <canvas id="stats-canvas"></canvas>
                 </section>
@@ -106,11 +117,11 @@
         <div class="w3-row">
             <div class="w3-col m12 w3-padding">
                 <section class="w3-panel w3-white w3-card">
-                    <h2 class="scroll-target" id="member-list"><b><text
+                    <h2 class="scroll-target" id="member-list-section"><b><text
                                 accessibilityLabel="Mitgliederliste">Mitgliederliste 🗂️</text></b></h2>
                     <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet.<br>
                         Das Eintrittsdatum wird bei der Erfassung eines Clubmitgliedes serverseitig berechnet.</p>
-                    <div class="w3-container responsive-table-container">
+                    <div class="w3-container responsive-table-container" v-cloak>
                         <table class="w3-table-all w3-card-4 w3-margin-bottom" v-if="members.length > 0">
                             <tr>
                                 <th>Name</th>
@@ -126,7 +137,8 @@
                                 <td>{{ member.shvNum }}</td>
                                 <td>{{ member.birthdate }}</td>
                                 <td>{{ member.entryDate }}</td>
-                                <td class="w3-right-align"><button class="remove-button" type="button" v-on:click="handleDeleteMember(member.email)">Löschen</button></td>
+                                <td class="w3-right-align"><button class="remove-button" type="button"
+                                        v-on:click="handleDeleteMember(member.email)">Löschen</button></td>
                             </tr>
                         </table>
                         <div class="w3-container w3-pale-red w3-leftbar w3-border-red w3-margin-bottom"
@@ -144,4 +156,5 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31"></script>
 <script src="js/script.js"></script>
+
 </html>

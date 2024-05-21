@@ -55,7 +55,6 @@ Vue.createApp({
                 return
             }
             this.newMember();
-            this.clearForm();
         },
         newMember() {
             let json = JSON.stringify({
@@ -68,6 +67,7 @@ Vue.createApp({
             xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 if(that.testAndHandleRequestError(xhr)){ return };
+                that.clearForm();
                 that.members = JSON.parse(xhr.responseText);
                 that.updateStatsCanvas();
             }
@@ -122,15 +122,22 @@ Vue.createApp({
         },
         testAndHandleRequestError(xhr){
             if (xhr.status < 200 || xhr.status > 299) {
-                let response = JSON.parse(xhr.responseText);
-                alert(`Request Failed: ${response.error.message} (${xhr.status})`);
+                try {
+                    let response = JSON.parse(xhr.responseText);
+                    alert(`Request failed: ${response.error.message} (${xhr.status})`);
+                } catch (e) {
+                    alert(`Request failed: ${xhr.status}`);
+                }
                 return true;
             }
             return false;
         },
         updateStatsCanvas() {
             let cvs = document.getElementById("stats-canvas");
-            this.updateCanvasSize(cvs);
+            cvs.style.width = '100%';
+            cvs.style.height = '600';
+            cvs.width = cvs.offsetWidth;
+            cvs.height = cvs.offsetHeight;
             let ctx = cvs.getContext("2d");
             let width = cvs.width;
             let height = cvs.height;
@@ -158,36 +165,26 @@ Vue.createApp({
             let yScale = dy / (yMax - yMin);
             ctx.beginPath();
             ctx.moveTo(x0 + (data[0].year - xMin) * xScale, y0 - (data[0].members - yMin) * yScale);
-            for (let i = 1; i < data.length; i++) {
+            for (let i = 1; i < data.length; i++) { // draw the line between the data points
                 ctx.lineTo(x0 + (data[i].year - xMin) * xScale, y0 - (data[i].members - yMin) * yScale);
             }
             ctx.stroke();
-            for (let i = 0; i < data.length; i++) {
-                ctx.beginPath();
+            ctx.font = "12px Arial";
+            ctx.textAlign = "center";
+            for (let i = 0; i < data.length; i++) { 
+                ctx.beginPath(); //draw data points
                 ctx.arc(x0 + (data[i].year - xMin) * xScale, y0 - (data[i].members - yMin) * yScale, 3, 0, 2 * Math.PI);
                 ctx.fill();
-            }
-            ctx.font = "12px Arial"; //draw labels
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            for (let i = 0; i < data.length; i++) {
+                ctx.textBaseline = "middle"; // draw the count of members for each year
                 ctx.fillText(data[i].members, x0 + (data[i].year - xMin) * xScale, (y0 - (data[i].members - yMin) * yScale) + -10);
-            }
-            ctx.textBaseline = "top";
-            for (let i = 0; i < data.length; i++) {
+                ctx.textBaseline = "top"; // draw the year below the x-axis
                 ctx.fillText(data[i].year, x0 + (data[i].year - xMin) * xScale, y0 + 5);
             }
-            ctx.save(); //label the y-axis
+            ctx.save(); // label the y-axis
             ctx.translate(7, height / 2);
             ctx.rotate(-Math.PI / 2);
             ctx.fillText("Mitglieder", 0, 0);
             ctx.restore();
-        },
-        updateCanvasSize(cvs) {
-            cvs.style.width = '100%';
-            cvs.style.height = '600';
-            cvs.width = cvs.offsetWidth;
-            cvs.height = cvs.offsetHeight;
         },
         handleResize() {
             this.updateStatsCanvas();

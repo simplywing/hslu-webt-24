@@ -1,16 +1,6 @@
 <?php
 
 error_reporting(0);
-$METHOD = $_SERVER['REQUEST_METHOD'];
-header('Content-Type: application/json');
-
-// User Identification Cookie
-
-if (!isset($_COOKIE['user'])) {
-    $unique_id = uniqid();
-    setcookie('user', $unique_id);
-    $_COOKIE['user'] = $unique_id;
-} 
 
 // Functions
 
@@ -31,7 +21,7 @@ function disconnect_db($connection)
 
 function validate_name($name)
 {
-    return strlen($name) > 3;
+    return strlen($name) >= 3;
 }
 
 function validate_email($email)
@@ -93,6 +83,18 @@ function delete_member($conn, $email){
         send_terminating_error('Error occured during execution: ' . $mysqli_error, 500);
     }
 }
+
+// Initialization
+
+$METHOD = $_SERVER['REQUEST_METHOD'];
+header('Content-Type: application/json');
+
+if (!isset($_COOKIE['user'])) {
+    $unique_id = uniqid('', true);
+    setcookie('user', $unique_id);
+    $_COOKIE['user'] = $unique_id;
+} 
+
 
 // Routing
 

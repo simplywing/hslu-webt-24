@@ -1,0 +1,13 @@
+Fragen:
+    - Kann anstatt XMLHttpRequest auch fetch verwendet werden?
+    - Zählt Vue {{ data }} als "DOM-Modification" für Fehlermeldungen bei Formularvalidierung?
+    - Abfangen von msqli Fehler: müssen ALLE msqli statements geprüft werden?
+    - "Dieser Abschnitt muss mindestens ein Paragraphelement und ein Bildelement enthalten." -> i.O.?
+    - Emoji's im HTML - was gibt es zu beachten betr. accessibility
+
+
+Todo:
+    - Scroll Target überlappung mit scroll-target::before beheben
+    - MySQL where statement einbauen (SELECT)
+    - notes.txt löschen
+    - mysqli connect root user pw löschen (XAMPP default)
