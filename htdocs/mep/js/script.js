@@ -13,7 +13,11 @@ Vue.createApp({
                 invalidName: "Der Name muss mindestens 3 Zeichen lang sein",
                 invalidEmail: "Die E-Mail-Adresse ist ungültig",
                 invalidShvNum: "Die SHV-Nummer ist ungültig",
-                invalidBirthdate: "Das Geburtsdatum ist ungültig"
+                invalidBirthdate: "Das Geburtsdatum ist ungültig",
+                errorLoadingMembers: "Fehler beim Laden der Mitgliederdaten",
+                errorSavingMembers: "Fehler beim Speichern der Mitgliederdaten",
+                timoutLoadingMembers: "Timeout beim Laden der Mitgliederdaten",
+                timeoutSavingMembers: "Timeout beim Speichern der Mitgliederdaten",
             },
             members: []
         }
@@ -29,7 +33,7 @@ Vue.createApp({
             return this.validEmail;
         },
         validateShvNum() {
-            this.validShvNum = this.shvNum > 0;
+            this.validShvNum = Number.isInteger(this.shvNum) && this.shvNum > 0;
             return this.validShvNum;
         },
         validateBirthdate() {
@@ -53,29 +57,56 @@ Vue.createApp({
             if (!(this.validateName() && this.validateEmail() && this.validateShvNum() && this.validateBirthdate())) {
                 return
             }
-            this.members.push(this.newMember());
-            this.updateStatsCanvas();
+            this.newMember();
             this.clearForm();
         },
         newMember() {
-            return {
+            let json = JSON.stringify({
                 name: this.name,
                 email: this.email,
                 shvNum: this.shvNum,
                 birthdate: this.birthdate,
-                entryDate: new Date().toISOString().slice(0, 10)
+            });
+            let that = this;
+            xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if(that.testAndHandleRequestError(xhr)){ return };
+                that.getMembers();
             }
+            xhr.onerror = function () {
+                alert(that.error.errorSavingMembers);
+            }
+            xhr.ontimeout = function () {
+                alert(that.error.timeoutSavingMembers);
+            }
+            xhr.open("POST", "api/v1/members", true); 
+            xhr.send(json);
         },
         getMembers() {
             let that = this;
             xhr = new XMLHttpRequest();
             xhr.onload = function () {
-                that.members = JSON.parse(this.responseText);
+                if(that.testAndHandleRequestError(xhr)){ return };
+                that.members = JSON.parse(xhr.responseText);
                 that.updateStatsCanvas();
+            }
+            xhr.onerror = function () {
+                alert(that.error.errorLoadingMembers);
+            }
+            xhr.ontimeout = function () {
+                alert(that.error.timoutLoadingMembers);
             }
             //TODO: handle error and timeout
             xhr.open("GET", "api/v1/members", true);
             xhr.send();
+        },
+        testAndHandleRequestError(xhr){
+            if (xhr.status != 200) {
+                let response = JSON.parse(xhr.responseText);
+                alert(`Request Failed: ${response.error.message} (${xhr.status})`);
+                return true;
+            }
+            return false;
         },
         updateStatsCanvas() {
             let cvs = document.getElementById("stats-canvas");
