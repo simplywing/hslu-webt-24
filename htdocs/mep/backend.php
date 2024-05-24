@@ -37,7 +37,7 @@ function validate_shvnum($shvnum)
 function validate_birthdate($birthdate)
 {
     $format = 'Y-m-d';
-    $date_now = date('Y-m-d');
+    $date_now = date($format);
     $dt = DateTime::createFromFormat($format, $birthdate);
     return $dt && $dt->format($format) == $birthdate && $birthdate < $date_now;
 }
@@ -50,7 +50,7 @@ function send_terminating_error($message, $code)
 }
 
 function get_members($conn){
-    $query = "SELECT uname as name, email, shvNum, birthdate, entryDate, createdBy FROM members ORDER BY entryDate ASC";
+    $query = "SELECT uname as name, email, shvNum, birthdate, entryDate, createdBy FROM members WHERE hidden != 1 ORDER BY entryDate ASC";
     $stmt = mysqli_prepare($conn, $query);
     $res = mysqli_stmt_execute($stmt);
     if (!$res) {

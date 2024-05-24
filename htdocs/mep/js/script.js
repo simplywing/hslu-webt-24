@@ -9,8 +9,8 @@ Vue.createApp({
             error: {
                 invalidName: "Der Name muss mindestens 3 Zeichen lang sein",
                 invalidEmail: "Die E-Mail-Adresse ist ungültig",
-                invalidShvNum: "Die SHV-Nummer ist ungültig",
-                invalidBirthdate: "Das Geburtsdatum ist ungültig",
+                invalidShvNum: "Die SHV-Nummer muss eine positive Zahl sein",
+                invalidBirthdate: "Das Geburtsdatum ist ungültig, da es nicht in der Vergangenheit liegt.",
                 errorLoadingMembers: "Fehler beim Laden der Mitgliederdaten",
                 errorSavingMembers: "Fehler beim Speichern der Mitgliederdaten",
                 timoutLoadingMembers: "Timeout beim Laden der Mitgliederdaten",

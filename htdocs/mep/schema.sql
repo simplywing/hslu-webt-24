@@ -7,6 +7,7 @@ CREATE TABLE members(
     shvNum text NOT NULL,
     birthdate date NOT NULL,
     entryDate date NOT NULL,
+    hidden tinyint(1) NOT NULL DEFAULT 0,
     createdBy text
 );
 

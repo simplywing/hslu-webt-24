@@ -101,6 +101,7 @@
                                 v-on:click="handleFormSubmit"><text accessibilityLabel="Speichern"><b>💾
                                         Speichern</b></text></button>
                         </div>
+                        <p><b>Datenschutzhinweis:</b> Die von Ihnen in diesem Formular angegebenen Daten werden gespeichert und öffentlich dargestellt. Bitte geben Sie keine vertraulichen Informationen ein.</p>
                     </form>
                 </section>
             </div>
@@ -119,7 +120,9 @@
                 <section class="w3-panel w3-white w3-card">
                     <h2 class="scroll-target" id="member-list-section"><b><text
                                 accessibilityLabel="Mitgliederliste">Mitgliederliste 🗂️</text></b></h2>
-                    <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet.<br>
+                    <p>Dies ist die Ausgabe. In diesem Abschnitt werden alle Clubmitglieder aufgelistet. 
+                        <span v-if="members.length > 0">Für das Jahr 2024 {{ members.length === 1 ? 'ist' : 'sind' }} 
+                            aktuell {{ members.length }} {{ members.length === 1 ? 'Mitglied' : 'Mitglieder' }} erfasst.</span><br>
                         Das Eintrittsdatum wird bei der Erfassung eines Clubmitgliedes serverseitig berechnet.</p>
                     <div class="w3-container responsive-table-container" v-cloak>
                         <table class="w3-table-all w3-card-4 w3-margin-bottom" v-if="members.length > 0">

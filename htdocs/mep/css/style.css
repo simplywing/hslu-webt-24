@@ -40,7 +40,7 @@ main {
     display: none;
 }
 
-.remove-button{
+.remove-button {
     display: none;
     padding: 1px, 8px;
     margin: 0;
@@ -50,11 +50,11 @@ main {
     cursor: pointer;
 }
 
-.remove-button:hover{
+.remove-button:hover {
     text-decoration: underline;
 }
 
-.member-table-row:hover .remove-button{
+.member-table-row:hover .remove-button {
     display: inline-block;
 }
 
