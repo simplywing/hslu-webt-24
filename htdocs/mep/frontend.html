@@ -140,8 +140,8 @@
                                 <td>{{ member.name }}</td>
                                 <td>{{ member.email }}</td>
                                 <td>{{ member.shvNum }}</td>
-                                <td>{{ member.birthdate }}</td>
-                                <td>{{ member.entryDate }}</td>
+                                <td>{{ new Date(member.birthdate).toLocaleDateString(locale) }}</td>
+                                <td>{{ new Date(member.entryDate).toLocaleDateString(locale) }}</td>
                                 <td>{{ member.createdBy }}</td>
                                 <td class="w3-right-align"><button class="remove-button" type="button"
                                         v-on:click="handleDeleteMember(member.email)">Löschen</button></td>

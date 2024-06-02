@@ -5,6 +5,7 @@ Vue.createApp({
             email: "",
             shvNum: "",
             birthdate: "",
+            locale: "de-CH",
             validName: true, validEmail: true, validShvNum: true, validBirthdate: true,
             error: {
                 invalidName: "Der Name muss mindestens 3 Zeichen lang sein",
