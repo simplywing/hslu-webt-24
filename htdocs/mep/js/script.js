@@ -94,7 +94,6 @@ Vue.createApp({
             xhr.ontimeout = function () {
                 alert(that.error.timoutLoadingMembers);
             }
-            //TODO: handle error and timeout
             xhr.open("GET", "api/v1/members", true);
             xhr.send();
         },
@@ -114,7 +113,6 @@ Vue.createApp({
             xhr.ontimeout = function () {
                 alert(that.error.timoutLoadingMembers);
             }
-            //TODO: handle error and timeout
             xhr.open("DELETE", "api/v1/members", true);
             xhr.send(JSON.stringify({
                 email: email
