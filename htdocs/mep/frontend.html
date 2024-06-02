@@ -101,7 +101,8 @@
                                 v-on:click="handleFormSubmit"><text accessibilityLabel="Speichern"><b>💾
                                         Speichern</b></text></button>
                         </div>
-                        <p><b>Datenschutzhinweis:</b> Die von Ihnen in diesem Formular angegebenen Daten werden gespeichert und öffentlich dargestellt. Bitte geben Sie keine vertraulichen Informationen ein.</p>
+                        <p><b>Datenschutzhinweis:</b> Die in diesem Formular angegebenen Daten werden gespeichert und 
+                            öffentlich dargestellt. Bitte gib keine vertraulichen Informationen ein.</p>
                     </form>
                 </section>
             </div>
@@ -132,6 +133,7 @@
                                 <th>SHV-Nummer</th>
                                 <th>Geburtsdatum</th>
                                 <th>Eintrittsdatum</th>
+                                <th>Ersteller:in</th>
                                 <th class="w3-right-align">Bearbeiten</th>
                             </tr>
                             <tr v-for="member in members" class="member-table-row">
@@ -140,6 +142,7 @@
                                 <td>{{ member.shvNum }}</td>
                                 <td>{{ member.birthdate }}</td>
                                 <td>{{ member.entryDate }}</td>
+                                <td>{{ member.createdBy }}</td>
                                 <td class="w3-right-align"><button class="remove-button" type="button"
                                         v-on:click="handleDeleteMember(member.email)">Löschen</button></td>
                             </tr>

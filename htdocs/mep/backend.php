@@ -7,7 +7,7 @@ error_reporting(0);
 function connect_db()
 {
     mysqli_report(MYSQLI_REPORT_OFF);
-    $conn = mysqli_connect("localhost", "root", "ruth", "thermikjunkies");
+    $conn = mysqli_connect("localhost", "root", "", "thermikjunkies");
     if (!$conn) {
         send_terminating_error('Error occured while connecting to the database', 500);
     }
