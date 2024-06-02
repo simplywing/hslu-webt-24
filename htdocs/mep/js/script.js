@@ -157,8 +157,8 @@ Vue.createApp({
             let y1 = 0;
             let dx = x1 - x0;
             let dy = y0 - y1;
-            let xMin = 2013;
-            let xMax = 2025;
+            let xMin = data[0].year -1;
+            let xMax = data[data.length - 1].year + 1;
             let yMin = 0;
             let yMax = this.members.length > 24 ? this.members.length + 3 : 27;
             let xScale = dx / (xMax - xMin);
