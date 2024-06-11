@@ -26,4 +26,3 @@ INSERT INTO `members` (`id`, `uname`, `email`, `shvNum`, `birthdate`, `entryDate
 (NULL, 'Mona Regen', 'm.regen@hotmail.com', '68315', '2000-08-11', '2019-04-21', 'Admin'),
 (NULL, 'Markus Vogelsang', 'zwitscher.m@gmail.com', '15522', '1983-03-28', '2016-12-01', 'Admin'),
 (NULL, 'Valentin Segler', 'vs1993@outlook.de', '38741', '1993-05-15', '2015-05-05', 'Admin');
-
